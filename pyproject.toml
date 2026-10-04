@@ -17,6 +17,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = [
+    "opensky-api",
+]
 
 [project.urls]
 Homepage = "https://davidlpower.github.io/whatsaboveme/"
@@ -30,7 +33,7 @@ dev = [
     "tox-uv>=1.33.4",
     "deptry>=0.25.1",
     "mypy>=1.19.1",
-    
+
     "ruff>=0.15.7",
 ]
 
@@ -105,4 +108,5 @@ ignore = [
 [tool.ruff.format]
 preview = true
 
-
+[tool.uv.sources]
+opensky-api = { git = "https://github.com/openskynetwork/opensky-api.git", subdirectory = "python", rev = "c4af9c9e5aba25fc6ee0852b54a91b8a7c02f76b" }
