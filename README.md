@@ -5,7 +5,7 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/davidlpower/whatsaboveme)](https://img.shields.io/github/commit-activity/m/davidlpower/whatsaboveme)
 [![License](https://img.shields.io/github/license/davidlpower/whatsaboveme)](https://img.shields.io/github/license/davidlpower/whatsaboveme)
 
-This is a template repository for Python projects that use uv for their dependency management.
+Aircraft sonification
 
 - **Github repository**: <https://github.com/davidlpower/whatsaboveme/>
 - **Documentation** <https://davidlpower.github.io/whatsaboveme/>
