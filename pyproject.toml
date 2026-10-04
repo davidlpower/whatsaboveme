@@ -18,7 +18,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "geopy>=2.5.0",
     "opensky-api",
+    "rich>=15.0.0",
 ]
 
 [project.urls]
@@ -100,6 +102,7 @@ ignore = [
     "E501",
     # DoNotAssignLambda
     "E731",
+    "TRY003",
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -110,3 +113,6 @@ preview = true
 
 [tool.uv.sources]
 opensky-api = { git = "https://github.com/openskynetwork/opensky-api.git", subdirectory = "python", rev = "c4af9c9e5aba25fc6ee0852b54a91b8a7c02f76b" }
+
+[project.scripts]
+whatsaboveme = "whatsaboveme.main:main"
