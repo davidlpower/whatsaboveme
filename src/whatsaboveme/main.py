@@ -5,18 +5,17 @@ from rich.table import Table
 
 
 def main() -> None:
-
     console = Console()
 
-    country = input("First, which country interests you? ")
-    city = input("Which city would you like to observe? ")
+    location = input("Where would you like to observe? ")
 
     token_manager = TokenManager.from_json_file("credentials.json")
     api = OpenSkyApi(token_manager=token_manager)
-    bbox = city_bbox(f"{city}, {country}")
+    bbox = city_bbox(location)
     states = api.get_states(bbox=bbox)
 
-    table = Table(title=f"Aircraft over {city}")
+    table = Table(title=f"Aircraft over {location}")
+    table.add_column("ICAO", style="yellow", no_wrap=True)
     table.add_column("Call Sign", style="cyan", no_wrap=True)
     table.add_column("Origin Country")
     table.add_column("Lon", justify="right")
@@ -26,6 +25,7 @@ def main() -> None:
 
     for s in states.states:
         table.add_row(
+            (s.icao24 or "").strip(),
             (s.callsign or "").strip(),
             s.origin_country,
             f"{s.longitude:.4f}",
