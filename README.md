@@ -54,6 +54,38 @@ git push origin main
 You are now ready to start development on your project!
 The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
 
+## Type stubs for untyped libraries
+
+Some dependencies (e.g. `opensky_api`) ship without type information, so type checkers cannot see their attributes. We keep hand-maintained stubs in `typings/`.
+
+### 1. Generate a starting stub
+
+`stubgen` is installed with mypy:
+
+```bash
+uv run stubgen -p opensky_api -o typings
+```
+
+This writes `typings/opensky_api.pyi` (for a package with submodules it creates a folder instead). The generated file is only a rough outline, so edit it by hand to add real types, e.g. `longitude: float | None`.
+
+### 2. Check the stub against the real package
+
+```bash
+uv run stubtest opensky_api
+```
+
+### 3. Tell the type checkers where the stubs are
+
+- **pyright** (used by Pylance in VS Code) looks in `typings/` by default, so nothing needs configuring.
+- **mypy** does not, so `pyproject.toml` sets:
+
+```toml
+[tool.mypy]
+mypy_path = "typings"
+```
+
+If the editor still shows errors such as `Cannot access attribute "icao24" for class "StateVector"` after adding a stub, reload the VS Code window.
+
 To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
 For activating the automatic documentation with MkDocs/Zensical, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/docs_tool/#deploying-to-github-pages).
 To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).

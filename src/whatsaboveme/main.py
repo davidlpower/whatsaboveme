@@ -1,4 +1,5 @@
 from geopy.geocoders import Nominatim  # type: ignore[import-untyped]
+from geopy.location import Location  # type: ignore[import-untyped]
 from opensky_api import OpenSkyApi, OpenSkyStates, TokenManager
 from rich.console import Console
 from rich.table import Table
@@ -35,6 +36,8 @@ def city_bbox(name: str) -> tuple[float, float, float, float]:
     location = geolocator.geocode(name)
     if location is None:
         raise ValueError(f"Could not find {name!r}")
+    if not isinstance(location, Location):
+        raise TypeError(f"Unexpected geocode result for {name!r}")
     south, north, west, east = (float(v) for v in location.raw["boundingbox"])
     return south, north, west, east
 
